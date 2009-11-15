@@ -23,24 +23,16 @@
 
 #ifndef __SSE__
 typedef float m128_float; 
-static inline m128_float float_to_m128(float f)
-{
-	return f;
-}
-static inline float m128_to_float(m128_float f)
-{
-	return f;
-}
+#define float_to_m128(f) f
+#define float_to_m128_const(f) f
+#define m128_to_float(f) f
+#define fidx(f,x) f[x]
 #else
 typedef __m128 m128_float;
-static inline m128_float float_to_m128(float f)
-{
-	return _mm_load1_ps(&f);
-}
-static inline float m128_to_float(m128_float f)
-{
-	return *((float *)&f);
-}
+#define float_to_m128(f) (_mm_load1_ps(&f))
+#define float_to_m128_const(f) ((m128_float){f, f, f, f})
+#define m128_to_float(f) (*((float *)&f))
+#define fidx(f,x) (((float *)&f)[x])
 #endif
 
 #endif /* _GMATH_TYPES_H_ */
