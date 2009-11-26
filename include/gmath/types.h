@@ -35,4 +35,12 @@ typedef __m128 m128_float;
 #define fidx(f,x) (((float *)&f)[x])
 #endif
 
+#ifdef __SSE__
+typedef __m128 vec4;
+#else
+typedef float[4] vec4;
+#endif
+
+typedef vec4 vec3;
+
 #endif /* _GMATH_TYPES_H_ */
