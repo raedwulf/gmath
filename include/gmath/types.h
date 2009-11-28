@@ -42,5 +42,6 @@ typedef float[4] vec4;
 #endif
 
 typedef vec4 vec3;
+typedef vec4 quat;
 
 #endif /* _GMATH_TYPES_H_ */

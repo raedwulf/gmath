@@ -11,6 +11,8 @@
 #ifndef _GMATH_H_
 #define _GMATH_H_
 
-#include "vec.h"
+#include "vec3.h"
+#include "vec4.h"
+#include "quat.h"
 
 #endif /* _GMATH_H_ */
