@@ -91,7 +91,7 @@ static inline quat quat_slerp(const quat q1, const quat q2, const float t)
 
 	/* Use spherical interpolation only if the quaternions are not very
 	 * close */
-        if ((1 - cos_theta) > 0.001f)
+        if ((1.0f - cos_theta) > 0.001f)
         {
                 /* SLERP */
                 float theta     = acosf(cos_theta);
@@ -115,16 +115,19 @@ static inline quat quat_slerp_m128(const quat q1, const quat q2,
 #ifndef __SSE__
 	quat_slerp(q1, q2, t);
 #else
-	/*
 	__m128 tmp0 = q1;
 	__m128 tmp1 = {0.0f, 0.0f, 0.0f, 0.0f};
-	__m128i flipi = {0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff};
+	__m128i flipi = {0x80000000, 0x80000000, 0x80000000, 0x80000000};
 	__m128 flip = _mm_castps_si128(flipi);
 	m128_float cos_theta = vec4_dot(q1, q2);
 	__m128 mask = _mm_cmplt_ps(cos_theta, tmp1);
-	__m128 invmask = _mm_xor_ps(mask, flip);
-	__m128 neg_cos_theta = vec4_neg(cos_theta);
-	*/
+	__m128 signmask = _mm_and_ps(mask, flip);
+	cos_theta = _mm_or_ps(cos_theta, signmask);
+	__m128 tmp2 = _mm_or_ps(q2, signmask);
+	__m128 one = {1.0f, 1.0f, 1.0f, 1.0f};
+	__m128 scale0 = _mm_sub_ps(one, t);
+	__m128 scale1 = t;
+	
 	
 	
 #endif
