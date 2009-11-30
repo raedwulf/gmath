@@ -1,7 +1,7 @@
 solution "gmath"
 	configurations { "Debug", "Release" }
 	includedirs {
-		"include/gmath",
+		"include",
 		"testing"
 	}
 	
@@ -10,6 +10,7 @@ solution "gmath"
 	language "C"
 	files {
 		"include/gmath/*.h",
+		"include/cephes/*.h",
 		"testing/*.h",
 		"testing/vec.c",
 	}

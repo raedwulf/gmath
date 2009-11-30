@@ -13,6 +13,7 @@
 
 #include <math.h>
 #include <assert.h>
+#include <cephes/cephes.h>
 
 #ifdef __SSE__
 #include <xmmintrin.h>
