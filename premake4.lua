@@ -10,13 +10,13 @@ solution "gmath"
 	language "C"
 	files {
 		"include/gmath/*.h",
-		"include/cephes/*.h",
+		"include/gmath/internal/*.h",
 		"testing/*.h",
 		"testing/vec.c",
 	}
-	buildoptions { "-std=c99" }
 	
 	configuration "linux"
+		buildoptions { "-std=c99" }
 		links { "m" }
 
 	configuration "Debug"

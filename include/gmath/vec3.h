@@ -24,7 +24,7 @@
 
 static inline m128_float vec3_dot_m128(const vec3 v1, const vec3 v2);
 	
-#include "vec.h"
+#include "internal/vec.h"
 
 static inline vec3 vec3_cross(const vec3 v1, const vec3 v2)
 {

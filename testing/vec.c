@@ -9,8 +9,8 @@
  */
 
 #include "fct.h"
-#include "gmath/vec3.h"
-#include "gmath/vec4.h"
+#include <gmath/vec3.h>
+#include <gmath/vec4.h>
 
 FCT_BGN()
 {

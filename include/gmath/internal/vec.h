@@ -4,7 +4,7 @@
  * Released under the MIT license.
  *
  * vec.h 
- * Handles any sized vectors if VEC_TYPE and VEC_SIZE is defined
+ * Handles 3,4 sized vectors if VEC_TYPE, VEC_PREFIX and VEC_SIZE is defined
  *
  */
 
