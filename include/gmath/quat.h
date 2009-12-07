@@ -12,7 +12,7 @@
 #define _GMATH_QUAT_H_
 
 #include "constants.h"
-#include "sincoslogexp.h"
+#include "sin.h"
 
 static inline quat quat_mul(const quat q1, const quat q2)
 {
