@@ -15,6 +15,20 @@ solution "gmath"
 		"testing/vec.c",
 	}
 	
+	configuration "linux"
+		buildoptions { "-std=c99" }
+		links { "m" }
+
+	configuration "Debug"
+		defines { "DEBUG" }
+		flags { "Symbols" }
+		targetdir "bin/debug"
+	
+	configuration "Release"
+		defines { "NDEBUG" }
+		flags { "OptimizeSpeed" }
+		targetdir "bin/release"
+	
 	project "sincos"
 	kind "ConsoleApp"
 	language "C"
