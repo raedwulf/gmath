@@ -15,6 +15,16 @@ solution "gmath"
 		"testing/vec.c",
 	}
 	
+	project "sincos"
+	kind "ConsoleApp"
+	language "C"
+	files {
+		"include/gmath/*.h",
+		"include/gmath/internal/*.h",
+		"testing/*.h",
+		"testing/sincos.c",
+	}
+
 	configuration "linux"
 		buildoptions { "-std=c99" }
 		links { "m" }

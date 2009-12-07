@@ -13,7 +13,6 @@
 
 #include <math.h>
 #include <assert.h>
-#include <cephes/cephes.h>
 
 #ifdef __SSE__
 #include <xmmintrin.h>
@@ -31,9 +30,10 @@ typedef float m128_float;
 #else
 typedef __m128 m128_float;
 #define float_to_m128(f) (_mm_load1_ps(&f))
-#define float_to_m128_const(f) ((m128_float){f, f, f, f})
+#define float_to_m128_const(f) (_mm_set1_ps(f))
 #define m128_to_float(f) (*((float *)&f))
 #define fidx(f,x) (((float *)&f)[x])
+#define int_to_m128_const(f) (_mm_castsi128_ps(_mm_set1_epi32(f)))
 #endif
 
 #ifdef __SSE__

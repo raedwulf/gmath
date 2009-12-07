@@ -1,0 +1,14 @@
+#!/usr/bin/calc -q -d -s -f
+global i, c, n;
+
+n = argv();
+
+if (n == 1) {
+	c = 6;
+} else {
+	c = eval(argv(1));
+}
+
+for (i = 0; i < c; i++) {
+	printf("__m128 p%d = __mm_set1_ps(%.20e);\n", i, 1/((i*2+2)!));
+}
