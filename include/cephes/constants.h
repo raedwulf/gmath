@@ -31,6 +31,7 @@
 
 _PS_CONST(1  , 1.0f);
 _PS_CONST(0p5, 0.5f);
+_PS_CONST(1p5, 1.5f);
 /* the smallest non denormalized float number */
 _PS_CONST_TYPE(min_norm_pos, int, 0x00800000);
 _PS_CONST_TYPE(mant_mask, int, 0x7f800000);

@@ -29,14 +29,15 @@ solution "gmath"
 		flags { "OptimizeSpeed" }
 		targetdir "bin/release"
 	
-	project "sincos"
+	project "cephes"
 	kind "ConsoleApp"
 	language "C"
 	files {
 		"include/gmath/*.h",
 		"include/gmath/internal/*.h",
+		"include/cephes/*.h",
 		"testing/*.h",
-		"testing/sincos.c",
+		"testing/cephes.c",
 	}
 
 	configuration "linux"
