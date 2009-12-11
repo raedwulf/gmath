@@ -1,0 +1,30 @@
+#!/usr/bin/calc -q -d -s -f
+global i, c, n;
+
+n = argv();
+
+if (n == 1) {
+	c = 9;
+} else {
+	c = eval(argv(1));
+}
+
+define term(n) {
+	local u, i;
+	u = 1;
+	for (i = 2; i <= n; i++) {
+		u *= (2*i-1);
+	}
+	u /= (2^n * n! * (2*n + 1));
+	return u;
+}
+
+for (i = 0; i < c; i++) {
+	printf("__m128 p%d = __mm_set1_ps(%.20e);\n", i+1, term(i+1));
+}
+
+for (i = 0; i < c - 1; i++) {
+	printf("%d * x^%d", term(i), 2*(i+1)-1);
+	printf(" + ");
+}
+printf("%d * x^%d\n", term(i), 2*(i+1)-1);
