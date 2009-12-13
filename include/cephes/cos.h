@@ -152,4 +152,28 @@ v4sf cos_ps(v4sf x) { // any x
   return y;
 }
 
+/* Fast version of cos with domain -PI/2 to PI/2 */
+v4sf cos_fast_ps(v4sf x) { // any x
+  v4sf xmm0, xmm1, xmm2, xmm3;
+  xmm0 = _mm_mul_ps(x, x);
+  xmm2 = _mm_mul_ps(xmm0, *(v4sf*)_ps_cosfastcof_p0);
+  xmm3 = _mm_add_ps(*(v4sf*)_ps_1, xmm2);
+  xmm1 = _mm_mul_ps(xmm0, xmm0);
+  xmm2 = _mm_mul_ps(xmm1, *(v4sf*)_ps_cosfastcof_p1);
+  xmm3 = _mm_add_ps(xmm3, xmm2);
+  xmm1 = _mm_mul_ps(xmm1, xmm0);
+  xmm2 = _mm_mul_ps(xmm1, *(v4sf*)_ps_cosfastcof_p2);
+  xmm3 = _mm_add_ps(xmm3, xmm2);
+  xmm1 = _mm_mul_ps(xmm1, xmm0);
+  xmm2 = _mm_mul_ps(xmm1, *(v4sf*)_ps_cosfastcof_p3);
+  xmm3 = _mm_add_ps(xmm3, xmm2);
+  xmm1 = _mm_mul_ps(xmm1, xmm0);
+  xmm2 = _mm_mul_ps(xmm1, *(v4sf*)_ps_cosfastcof_p4);
+  xmm3 = _mm_add_ps(xmm3, xmm2);
+  xmm1 = _mm_mul_ps(xmm1, xmm0);
+  xmm2 = _mm_mul_ps(xmm1, *(v4sf*)_ps_cosfastcof_p5);
+  xmm3 = _mm_add_ps(xmm3, xmm2);
+  return xmm3;
+}
+
 #endif /* _CEPHES_COS_H_ */

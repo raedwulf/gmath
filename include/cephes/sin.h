@@ -35,7 +35,7 @@
 
 #include "common.h"
 
-/* evaluation of 4 sines at onces, using only SSE1+MMX intrinsics so
+/* evaluation of 4 sines at once, using only SSE1+MMX intrinsics so
    it runs also on old athlons XPs and the pentium III of your grand
    mother.
 
@@ -177,6 +177,31 @@ v4sf sin_ps(v4sf x) { // any x
   y = _mm_xor_ps(y, sign_bit);
 
   return y;
+}
+
+/* Fast version of sin with domain -PI/2 to PI/2 */
+v4sf sin_fast_ps(v4sf x) {
+  v4sf xmm0, xmm1, xmm2, xmm3;
+  xmm0 = _mm_mul_ps(x, x);
+  xmm1 = _mm_mul_ps(xmm0, x);
+  xmm2 = _mm_mul_ps(xmm1, *(v4sf*)_ps_sinfastcof_p0);
+  xmm3 = _mm_add_ps(x, xmm2);
+  xmm1 = _mm_mul_ps(xmm1, xmm0);
+  xmm2 = _mm_mul_ps(xmm1, *(v4sf*)_ps_sinfastcof_p1);
+  xmm3 = _mm_add_ps(xmm3, xmm2);
+  xmm1 = _mm_mul_ps(xmm1, xmm0);
+  xmm2 = _mm_mul_ps(xmm1, *(v4sf*)_ps_sinfastcof_p2);
+  xmm3 = _mm_add_ps(xmm3, xmm2);
+  xmm1 = _mm_mul_ps(xmm1, xmm0);
+  xmm2 = _mm_mul_ps(xmm1, *(v4sf*)_ps_sinfastcof_p3);
+  xmm3 = _mm_add_ps(xmm3, xmm2);
+  xmm1 = _mm_mul_ps(xmm1, xmm0);
+  xmm2 = _mm_mul_ps(xmm1, *(v4sf*)_ps_sinfastcof_p4);
+  xmm3 = _mm_add_ps(xmm3, xmm2);
+  xmm1 = _mm_mul_ps(xmm1, xmm0);
+  xmm2 = _mm_mul_ps(xmm1, *(v4sf*)_ps_sinfastcof_p5);
+  xmm3 = _mm_add_ps(xmm3, xmm2);
+  return xmm3;
 }
 
 #endif /* _CEPHES_SIN_H_ */
