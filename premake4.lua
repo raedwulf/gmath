@@ -45,11 +45,11 @@ solution "gmath"
 		links { "m" }
 
 	configuration "Debug"
-		defines { "DEBUG" }
+		defines { "DEBUG", "USE_SSE2" }
 		flags { "Symbols" }
 		targetdir "bin/debug"
 	
 	configuration "Release"
-		defines { "NDEBUG" }
+		defines { "NDEBUG", "USE_SSE2" }
 		flags { "OptimizeSpeed" }
 		targetdir "bin/release"

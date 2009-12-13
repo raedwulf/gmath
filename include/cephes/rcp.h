@@ -1,16 +1,10 @@
-/* SIMD (SSE1+MMX or SSE2) implementation of cephes math library
+/* SIMD SSE2 implementation of cephes
 
    Inspired by Intel Approximate Math library, and based on the
    corresponding algorithms of the cephes math library
-
-   The default is to use the SSE1 version. If you define USE_SSE2 the
-   the SSE2 intrinsics will be used in place of the MMX intrinsics. Do
-   not expect any significant performance improvement with SSE2.
-   
-   This is an improved version from Julien Pommier.
 */
 
-/* Copyright (C) 2007 Julien Pommier, 2009 Ralph Eastwood
+/* Copyright (C) 2009 Ralph Eastwood
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -30,14 +24,16 @@
 
   (this is the zlib license)
 */
-#ifndef _CEPHES_H_
-#define _CEPHES_H_
 
-#include "log.h"
-#include "exp.h"
-#include "sin.h"
-#include "cos.h"
-#include "tan.h"
-#include "asin.h"
+#ifndef _CEPHES_RCP_H_
+#define _CEPHES_RCP_H_
 
-#endif /* _CEPHES_H_ */
+#include "common.h"
+
+v4sf rcp_ps(v4sf x) {
+  v4sf r = _mm_rcp_ps(x);
+  r = _mm_sub_ps(_mm_add_ps(r, r), _mm_mul_ps(_mm_mul_ps(r, x), r));
+  return r;
+}
+
+#endif /* _CEPHES_RCP_H_ */

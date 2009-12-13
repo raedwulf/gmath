@@ -12,6 +12,7 @@
 #include <gmath/vec4.h>
 #include <cephes/sin.h>
 #include <cephes/cos.h>
+#include <cephes/tan.h>
 #include <cephes/asin.h>
 
 #define APPROX(X,Y) (X > Y - EPSILON && X < Y + EPSILON)
@@ -139,6 +140,30 @@ FCT_BGN()
 			fct_chk(APPROX(fidx(vs, 1), cosf(fidx(v, 1))));
 			fct_chk(APPROX(fidx(vs, 2), cosf(fidx(v, 2))));
 			fct_chk(APPROX(fidx(vs, 3), cosf(fidx(v, 3))));
+		}
+		FCT_TEST_END();
+		
+		FCT_TEST_BGN("tan_ps normal")
+		{
+			vec4 v = {100.0f, -3.15f, 0.2f, -5.3f};
+			vec4 vs = tan_ps(v);
+			SHOW_VALUES(tan, tanf, v, vs);
+			fct_chk(APPROX(fidx(vs, 0), tanf(fidx(v, 0))));
+			fct_chk(APPROX(fidx(vs, 1), tanf(fidx(v, 1))));
+			fct_chk(APPROX(fidx(vs, 2), tanf(fidx(v, 2))));
+			fct_chk(APPROX(fidx(vs, 3), tanf(fidx(v, 3))));
+		}
+		FCT_TEST_END();
+		
+		FCT_TEST_BGN("tan_ps special")
+		{
+			vec4 v = {PI/4.0f, -PI/4.0f, 0.0f, 0.0f};
+			vec4 vs = tan_ps(v);
+			SHOW_VALUES(tan, tanf, v, vs);
+			fct_chk(APPROX(fidx(vs, 0), tanf(fidx(v, 0))));
+			fct_chk(APPROX(fidx(vs, 1), tanf(fidx(v, 1))));
+			fct_chk(APPROX(fidx(vs, 2), tanf(fidx(v, 2))));
+			fct_chk(APPROX(fidx(vs, 3), tanf(fidx(v, 3))));
 		}
 		FCT_TEST_END();
 		
