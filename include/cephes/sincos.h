@@ -48,7 +48,7 @@ _PS_CONST(cephes_FOPI, 1.27323954473516); // 4 / M_PI
 
 /* since sin_ps and cos_ps are almost identical, sincos_ps could replace both of them..
    it is almost as fast, and gives you a free cosine with your sine */
-void sincos_ps(v4sf x, v4sf *s, v4sf *c) {
+static inline void sincos_ps(v4sf x, v4sf *s, v4sf *c) {
   v4sf xmm1, xmm2, xmm3 = _mm_setzero_ps(), sign_bit_sin, y;
 #ifdef USE_SSE2
   v4si emm0, emm2, emm4;

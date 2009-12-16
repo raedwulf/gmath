@@ -31,7 +31,7 @@
 #include "common.h"
 #include "rcp.h"
 
-v4sf tan_ps(v4sf x) {
+static inline v4sf tan_ps(v4sf x) {
   v4sf xmm0, xmm1;
   v4sf flag;
   v4si j, emm0;

@@ -35,7 +35,7 @@
 
 #include "common.h"
 
-v4sf exp_ps(v4sf x) {
+static inline v4sf exp_ps(v4sf x) {
   v4sf tmp = _mm_setzero_ps(), fx;
 #ifdef USE_SSE2
   v4si emm0;

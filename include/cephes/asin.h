@@ -35,7 +35,7 @@
 #include "common.h"
 #include "sqrt.h"
 
-v4sf asin_ps(v4sf x) {
+static inline v4sf asin_ps(v4sf x) {
   v4sf xmm0, xmm1, xmm2;
   v4sf flag;
   v4sf z, z0;

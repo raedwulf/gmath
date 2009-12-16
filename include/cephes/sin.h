@@ -63,7 +63,7 @@
    Since it is based on SSE intrinsics, it has to be compiled at -O2 to
    deliver full speed.
 */
-v4sf sin_ps(v4sf x) { // any x
+static inline v4sf sin_ps(v4sf x) { // any x
   v4sf xmm1, xmm2 = _mm_setzero_ps(), xmm3, sign_bit, y;
 
 #ifdef USE_SSE2
@@ -180,7 +180,7 @@ v4sf sin_ps(v4sf x) { // any x
 }
 
 /* Fast version of sin with domain -PI/2 to PI/2 */
-v4sf sin_fast_ps(v4sf x) {
+static inline v4sf sin_fast_ps(v4sf x) {
   v4sf xmm0, xmm1, xmm2, xmm3;
   xmm0 = _mm_mul_ps(x, x);
   xmm1 = _mm_mul_ps(xmm0, x);

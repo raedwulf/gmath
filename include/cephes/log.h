@@ -39,7 +39,7 @@
 /* natural logarithm computed for 4 simultaneous float 
    return NaN for x <= 0
 */
-v4sf log_ps(v4sf x) {
+static inline v4sf log_ps(v4sf x) {
 #ifdef USE_SSE2
   v4si emm0;
 #else

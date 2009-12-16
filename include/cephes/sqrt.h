@@ -34,7 +34,7 @@
 
 #include "common.h"
 
-v4sf sqrt_ps(v4sf x) {
+static inline v4sf sqrt_ps(v4sf x) {
   v4sf half = _mm_mul_ps(x, *(v4sf*)_ps_0p5);
   v4sf iszero = _mm_cmpeq_ps(_mm_setzero_ps(), x);
   v4sf x2 = _mm_rsqrt_ps(x);

@@ -30,7 +30,7 @@
 
 #include "common.h"
 
-v4sf rcp_ps(v4sf x) {
+static inline v4sf rcp_ps(v4sf x) {
   v4sf r = _mm_rcp_ps(x);
   r = _mm_sub_ps(_mm_add_ps(r, r), _mm_mul_ps(_mm_mul_ps(r, x), r));
   return r;

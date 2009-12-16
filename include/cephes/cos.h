@@ -35,7 +35,7 @@
 #include "common.h"
 
 /* almost the same as sin_ps */
-v4sf cos_ps(v4sf x) { // any x
+static inline v4sf cos_ps(v4sf x) { // any x
   v4sf xmm1, xmm2 = _mm_setzero_ps(), xmm3, y;
 #ifdef USE_SSE2
   v4si emm0, emm2;
@@ -153,7 +153,7 @@ v4sf cos_ps(v4sf x) { // any x
 }
 
 /* Fast version of cos with domain -PI/2 to PI/2 */
-v4sf cos_fast_ps(v4sf x) { // any x
+static inline v4sf cos_fast_ps(v4sf x) { // any x
   v4sf xmm0, xmm1, xmm2, xmm3;
   xmm0 = _mm_mul_ps(x, x);
   xmm2 = _mm_mul_ps(xmm0, *(v4sf*)_ps_cosfastcof_p0);
