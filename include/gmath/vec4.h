@@ -44,12 +44,11 @@ static inline m128_float vec4_dot_m128(const vec4 v1, const vec4 v2)
 #ifndef __SSE__
 	return vec4_dot(v1, v2);
 #else
-	__m128 v = _mm_mul_ps(v1, v2);
-	__m128 tmp0 = _mm_shuffle_ps(v, v, _MM_SHUFFLE(0,0,0,0));
-	__m128 tmp1 = _mm_shuffle_ps(v, v, _MM_SHUFFLE(1,1,1,1));
-	__m128 tmp2 = _mm_shuffle_ps(v, v, _MM_SHUFFLE(2,2,2,2));
-	__m128 tmp3 = _mm_shuffle_ps(v, v, _MM_SHUFFLE(3,3,3,3));
-	return _mm_add_ps(tmp0, _mm_add_ps(tmp1, _mm_add_ps(tmp2, tmp3)));
+	__m128 xyzw = _mm_mul_ps(v1, v2);
+	__m128 yxwz = _mm_shuffle_ps(xyzw, xyzw, _MM_SHUFFLE(2, 3, 0, 1));
+	__m128 xy2zw2 = _mm_add_ps(xyzw, yxwz);
+	__m128 zw4 = _mm_unpackhi_ps(xy2zw2, xy2zw2);
+	return _mm_cvtss_f32(_mm_add_ss(xy2zw2, zw4));
 #endif
 }
 #endif /* _GMATH_VEC4_H_ */
