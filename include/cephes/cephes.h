@@ -39,5 +39,6 @@
 #include "cos.h"
 #include "tan.h"
 #include "asin.h"
+#include "atan.h"
 
 #endif /* _CEPHES_H_ */

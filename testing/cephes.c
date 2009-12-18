@@ -14,6 +14,7 @@
 #include <cephes/cos.h>
 #include <cephes/tan.h>
 #include <cephes/asin.h>
+#include <cephes/atan.h>
 
 #define APPROX(X,Y) (X > Y - EPSILON && X < Y + EPSILON)
 #define SHOW_VALUES(T,TC,V,VS) \
@@ -188,6 +189,30 @@ FCT_BGN()
 			fct_chk(APPROX(fidx(vs, 1), asinf(fidx(v, 1))));
 			fct_chk(APPROX(fidx(vs, 2), asinf(fidx(v, 2))));
 			fct_chk(APPROX(fidx(vs, 3), asinf(fidx(v, 3))));
+		}
+		FCT_TEST_END();
+		
+		FCT_TEST_BGN("atan_ps normal")
+		{
+			vec4 v = {-0.5f, 0.3f, 0.6f, -0.8f};
+			vec4 vs = atan_ps(v);
+			SHOW_VALUES(atan, atanf, v, vs);
+			fct_chk(APPROX(fidx(vs, 0), atanf(fidx(v, 0))));
+			fct_chk(APPROX(fidx(vs, 1), atanf(fidx(v, 1))));
+			fct_chk(APPROX(fidx(vs, 2), atanf(fidx(v, 2))));
+			fct_chk(APPROX(fidx(vs, 3), atanf(fidx(v, 3))));
+		}
+		FCT_TEST_END();
+		
+		FCT_TEST_BGN("atan_ps special")
+		{
+			vec4 v = {-1.0f, 0.0f, 1.0f, 0.0f};
+			vec4 vs = atan_ps(v);
+			SHOW_VALUES(atan, atanf, v, vs);
+			fct_chk(APPROX(fidx(vs, 0), atanf(fidx(v, 0))));
+			fct_chk(APPROX(fidx(vs, 1), atanf(fidx(v, 1))));
+			fct_chk(APPROX(fidx(vs, 2), atanf(fidx(v, 2))));
+			fct_chk(APPROX(fidx(vs, 3), atanf(fidx(v, 3))));
 		}
 		FCT_TEST_END();
 	}
