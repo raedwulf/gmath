@@ -48,7 +48,9 @@ static inline m128_float vec4_dot_m128(const vec4 v1, const vec4 v2)
 	__m128 yxwz = _mm_shuffle_ps(xyzw, xyzw, _MM_SHUFFLE(2, 3, 0, 1));
 	__m128 xy2zw2 = _mm_add_ps(xyzw, yxwz);
 	__m128 zw4 = _mm_unpackhi_ps(xy2zw2, xy2zw2);
-	return _mm_cvtss_f32(_mm_add_ss(xy2zw2, zw4));
+	__m128 ___r = _mm_add_ss(xy2zw2, zw4);
+	__m128 rrrr = _mm_shuffle_ps(___r, ___r, _MM_SHUFFLE(3,3,3,3));
+	return rrrr;
 #endif
 }
 #endif /* _GMATH_VEC4_H_ */

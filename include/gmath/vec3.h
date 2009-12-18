@@ -63,10 +63,12 @@ static inline m128_float vec3_dot_m128(const vec3 v1, const vec3 v2)
 	return vec3_dot(v1, v2);
 #else
 	__m128 xyzw = _mm_mul_ps(v1, v2);
-	__m128 yxwz = _mm_shuffle_ps(v, v, _MM_SHUFFLE(2,3,0,1));
+	__m128 yxwz = _mm_shuffle_ps(xyzw, xyzw, _MM_SHUFFLE(2,3,0,1));
 	__m128 xy = _mm_add_ss(xyzw, yxwz);
 	__m128 zzww = _mm_unpackhi_ps(xyzw, xyzw);
-	return _mm_cvtss_f32(_mm_add_ss(xy, zzww));
+	__m128 ___r = _mm_add_ss(xy, zzww);
+	__m128 rrrr = _mm_shuffle_ps(___r, ___r, _MM_SHUFFLE(3,3,3,3));
+	return rrrr;
 #endif
 }
 
