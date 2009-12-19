@@ -73,4 +73,32 @@ static inline v4sf atan_ps(v4sf x) {
   return _mm_xor_ps(sign_bit, y);
 }
 
+static inline v4sf atan2_ps(v4sf y, v4sf x) {
+  v4sf xmm0, xmm1, xmm2, xmm3;
+  v4sf xmm4, xmm5, xmm6, xmm7;
+  v4sf sign_bit;
+  v4sf z, w;
+  
+  xmm0 = _mm_cmplt_ps(x, _mm_setzero_ps()); 
+  xmm1 = _mm_cmplt_ps(y, _mm_setzero_ps());
+  xmm2 = _mm_cmpeq_ps(x, _mm_setzero_ps());
+  xmm3 = _mm_cmpeq_ps(y, _mm_setzero_ps());
+  
+  sign_bit = _mm_and_ps(xmm1, *(v4sf*)_ps_sign_mask);
+  xmm5 = _mm_and_ps(xmm0, *(v4sf*)_ps_cephes_PI);
+  w = _mm_or_ps(xmm5, sign_bit);
+  z = atan_ps(_mm_mul_ps(y, rcp_ps(x)));
+  xmm4 = _mm_add_ps(w, z);
+  
+  /* x == 0.0 */
+  xmm6 = _mm_andnot_ps(xmm2, xmm4);
+  xmm7 = _mm_andnot_ps(xmm1, *(v4sf*)_ps_cephes_PIO2F);
+  xmm7 = _mm_or_ps(xmm7, sign_bit);
+  xmm7 = _mm_andnot_ps(xmm3, xmm7);
+  xmm7 = _mm_and_ps(xmm2, xmm7);
+  xmm0 = _mm_or_ps(xmm6, xmm7);
+  
+  return xmm0;
+}
+
 #endif /* _CEPHES_ATAN_H_ */

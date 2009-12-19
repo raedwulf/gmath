@@ -34,6 +34,28 @@
 			TC(fidx(v, 2)), \
 			TC(fidx(v, 3)));
 
+#define SHOW_VALUES2(T,TC,V1,V2,VS) \
+	printf("\nv1:       %.10f %.10f %.10f %.10f", \
+			fidx(v1, 0), \
+			fidx(v1, 1), \
+			fidx(v1, 2), \
+			fidx(v1, 3)); \
+	printf("\nv2:       %.10f %.10f %.10f %.10f", \
+			fidx(v2, 0), \
+			fidx(v2, 1), \
+			fidx(v2, 2), \
+			fidx(v2, 3)); \
+	printf("\n" #T "_ps:   %.10f %.10f %.10f %.10f", \
+			fidx(vs, 0), \
+			fidx(vs, 1), \
+			fidx(vs, 2), \
+			fidx(vs, 3)); \
+	printf("\n" #TC ":      %.10f %.10f %.10f %.10f\n", \
+			TC(fidx(v1, 0), fidx(v2, 0)), \
+			TC(fidx(v1, 1), fidx(v2, 1)), \
+			TC(fidx(v1, 2), fidx(v2, 2)), \
+			TC(fidx(v1, 3), fidx(v2, 3)));
+
 FCT_BGN()
 {
 	FCT_FIXTURE_SUITE_BGN("sin")
@@ -213,6 +235,31 @@ FCT_BGN()
 			fct_chk(APPROX(fidx(vs, 1), atanf(fidx(v, 1))));
 			fct_chk(APPROX(fidx(vs, 2), atanf(fidx(v, 2))));
 			fct_chk(APPROX(fidx(vs, 3), atanf(fidx(v, 3))));
+		}
+		FCT_TEST_END();
+		FCT_TEST_BGN("atan2_ps normal")
+		{
+			vec4 v1 = {-0.5f, 0.3f, 0.6f, -0.8f};
+			vec4 v2 = {-0.5f, 0.3f, 0.6f, -0.8f};
+			vec4 vs = atan2_ps(v1, v2);
+			SHOW_VALUES2(atan2, atan2f, v1, v2, vs);
+			fct_chk(APPROX(fidx(vs, 0), atan2f(fidx(v1, 0), fidx(v2, 0))));
+			fct_chk(APPROX(fidx(vs, 1), atan2f(fidx(v1, 1), fidx(v2, 1))));
+			fct_chk(APPROX(fidx(vs, 2), atan2f(fidx(v1, 2), fidx(v2, 2))));
+			fct_chk(APPROX(fidx(vs, 3), atan2f(fidx(v1, 3), fidx(v2, 3))));
+		}
+		FCT_TEST_END();
+		
+		FCT_TEST_BGN("atan2_ps special")
+		{
+			vec4 v1 = {-2.0f, 4.0f, 1.0f, 0.0f};
+			vec4 v2 = {-1.0f, 0.0f, 2.0f, 4.0f};
+			vec4 vs = atan2_ps(v1, v2);
+			SHOW_VALUES2(atan2, atan2f, v1, v2, vs);
+			fct_chk(APPROX(fidx(vs, 0), atan2f(fidx(v1, 0), fidx(v2, 0))));
+			fct_chk(APPROX(fidx(vs, 1), atan2f(fidx(v1, 1), fidx(v2, 1))));
+			fct_chk(APPROX(fidx(vs, 2), atan2f(fidx(v1, 2), fidx(v2, 2))));
+			fct_chk(APPROX(fidx(vs, 3), atan2f(fidx(v1, 3), fidx(v2, 3))));
 		}
 		FCT_TEST_END();
 	}
