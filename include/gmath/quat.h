@@ -12,7 +12,11 @@
 #define _GMATH_QUAT_H_
 
 #include "constants.h"
-#include "sin.h"
+#include "cephes/cos.h"
+#include "cephes/sin.h"
+#include "cephes/atan.h"
+#include "cephes/rcp.h"
+#include "quat.h"
 
 static inline quat quat_mul(const quat q1, const quat q2)
 {
@@ -71,66 +75,44 @@ static inline quat quat_from_euler(const vec3 euler)
  
 static inline quat quat_slerp(const quat q1, const quat q2, const float t)
 {
-#ifndef __SSE__
-	/* Spherical linear interpolation between two quaternions */
-        /* Note: SLERP is not commutative */
-        quat q3 = q1;
+	quat out;
+	float scale0, scale1;
+	float cosom = vec4_dot(q1, q2);
+	float abscosom = fabs(cosom);
 
-        /* Calculate cosine */
-        float cos_theta = vec4_dot(q1, q2);
+	if ((1.0f - abscosom) > 1e-6f) {
+		float sinsqr = 1.0f - abscosom * abscosom;
+		float sinom = 1.0f / sqrt(sinsqr);
+		float omega = atan_fast(sinsqr * sinom, abscosom);
 
-        /* Use the shortest path */
-        if (cos_theta < 0)
-        {
-                cos_theta = -cos_theta;
-                q3        = vec4_neg(q2);
+		scale0 = sin_fast((1.0f - t) * omega) * sinom;
+		scale1 = sin_fast(t * omega) * sinom;
+	} else {
+		/* 
+		 * Even though this is a standard lerp, we don't need 
+		 * to renormalize since the angle is very small. 
+		 */
+		scale0 = 1.0f - t;
+		scale1 = t;
 	}
+	scale1 = (cosom >= 0.0f) ? scale1 : -scale1;
 
-        /* Initialize with linear interpolation */
-        float scale0 = 1 - t, scale1 = t;
-
-	/* Use spherical interpolation only if the quaternions are not very
-	 * close */
-        if ((1.0f - cos_theta) > 0.001f)
-        {
-                /* SLERP */
-                float theta     = acosf(cos_theta);
-                float sin_theta = sinf(theta);
-                scale0 = sinf((1 - t) * theta) / sin_theta;
-                scale1 = sinf(t * theta) / sin_theta;
-	}
-
-        /* Calculate final quaternion */
-        quat ret = vec4_add(vec4_scale(q1, scale0), vec4_scale(q3, scale1));
-        return ret;
+#ifdef __SSE__
+	out = _mm_add_ps(_mm_mul_ps(q1, _mm_set1_ps(scale0)),
+			_mm_mul_ps(q2, _mm_set1_ps(scale1)));
 #else
-        m128_float tmp = m128_to_float(t);
-        return quat_slerp_m128(q1, q2, tmp);
+	out[0] = scale0 * v[0] + scale1 * to[0];
+	out[1] = scale0 * v[1] + scale1 * to[1];
+	out[2] = scale0 * v[2] + scale1 * to[2];
+	out[3] = scale0 * v[3] + scale1 * to[3];
 #endif
+	return out;
 }
 
 static inline quat quat_slerp_m128(const quat q1, const quat q2,
 		const m128_float t)
 {
-#ifndef __SSE__
-	quat_slerp(q1, q2, t);
-#else
-	__m128 tmp0 = q1;
-	__m128 tmp1 = {0.0f, 0.0f, 0.0f, 0.0f};
-	__m128i flipi = {0x80000000, 0x80000000, 0x80000000, 0x80000000};
-	__m128 flip = _mm_castps_si128(flipi);
-	m128_float cos_theta = vec4_dot(q1, q2);
-	__m128 mask = _mm_cmplt_ps(cos_theta, tmp1);
-	__m128 signmask = _mm_and_ps(mask, flip);
-	cos_theta = _mm_or_ps(cos_theta, signmask);
-	__m128 tmp2 = _mm_or_ps(q2, signmask);
-	__m128 one = {1.0f, 1.0f, 1.0f, 1.0f};
-	__m128 scale0 = _mm_sub_ps(one, t);
-	__m128 scale1 = t;
-	
-	
-	
-#endif
+	quat_slerp(q1, q2, m128_to_float(t));
 }
 
 #endif /* _GMATH_QUAT_H_ */
