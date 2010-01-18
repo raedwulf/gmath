@@ -11,7 +11,19 @@
 #include "fct.h"
 #include <gmath/vec3.h>
 #include <gmath/vec4.h>
-
+#define SHOW_VALUES_VEC3(T,V1,V2,VR) \
+	printf("\nv1:        %.10f %.10f %.10f", \
+			fidx(V1, 0), \
+			fidx(V1, 1), \
+			fidx(V1, 2)); \
+	printf("\nv2:        %.10f %.10f %.10f", \
+			fidx(V2, 0), \
+			fidx(V2, 1), \
+			fidx(V2, 2)); \
+	printf("\nvec3_" #T ":   %.10f %.10f %.10f\n", \
+			fidx(VR, 0), \
+			fidx(VR, 1), \
+			fidx(VR, 2))
 FCT_BGN()
 {
 	FCT_FIXTURE_SUITE_BGN("vec")
@@ -95,9 +107,9 @@ FCT_BGN()
 			vec3 v1 = {1.0f, 2.0f, 3.0f};
 			vec3 v2 = {3.0f, 2.0f, 1.0f};
 			vec3 v3 = vec3_cross(v1, v2);
-			fct_chk(fidx(v3, 0) = 0.0f);
-			fct_chk(fidx(v3, 1) = 0.0f);
-			fct_chk(fidx(v3, 2) = 0.0f);
+			fct_chk(fidx(v3, 0) = -4.0f);
+			fct_chk(fidx(v3, 1) = 8.0f);
+			fct_chk(fidx(v3, 2) = -4.0f);
 		}
 		FCT_TEST_END();
 
