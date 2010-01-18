@@ -204,4 +204,13 @@ static inline v4sf sin_fast_ps(v4sf x) {
   return xmm3;
 }
 
+/* Fast version for a single float */
+static inline float sin_fast(float a)
+{
+	float s, t;
+
+	s = a * a;
+	
+}
+
 #endif /* _CEPHES_SIN_H_ */

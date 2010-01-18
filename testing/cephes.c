@@ -19,42 +19,42 @@
 #define APPROX(X,Y) (X > Y - EPSILON && X < Y + EPSILON)
 #define SHOW_VALUES(T,TC,V,VS) \
 	printf("\nv:        %.10f %.10f %.10f %.10f", \
-			fidx(v, 0), \
-			fidx(v, 1), \
-			fidx(v, 2), \
-			fidx(v, 3)); \
+			fidx(V, 0), \
+			fidx(V, 1), \
+			fidx(V, 2), \
+			fidx(V, 3)); \
 	printf("\n" #T "_ps:   %.10f %.10f %.10f %.10f", \
-			fidx(vs, 0), \
-			fidx(vs, 1), \
-			fidx(vs, 2), \
-			fidx(vs, 3)); \
+			fidx(VS, 0), \
+			fidx(VS, 1), \
+			fidx(VS, 2), \
+			fidx(VS, 3)); \
 	printf("\n" #TC ":      %.10f %.10f %.10f %.10f\n", \
-			TC(fidx(v, 0)), \
-			TC(fidx(v, 1)), \
-			TC(fidx(v, 2)), \
-			TC(fidx(v, 3)));
+			TC(fidx(V, 0)), \
+			TC(fidx(V, 1)), \
+			TC(fidx(V, 2)), \
+			TC(fidx(V, 3)));
 
 #define SHOW_VALUES2(T,TC,V1,V2,VS) \
 	printf("\nv1:       %.10f %.10f %.10f %.10f", \
-			fidx(v1, 0), \
-			fidx(v1, 1), \
-			fidx(v1, 2), \
-			fidx(v1, 3)); \
+			fidx(V1, 0), \
+			fidx(V1, 1), \
+			fidx(V1, 2), \
+			fidx(V1, 3)); \
 	printf("\nv2:       %.10f %.10f %.10f %.10f", \
-			fidx(v2, 0), \
-			fidx(v2, 1), \
-			fidx(v2, 2), \
-			fidx(v2, 3)); \
+			fidx(V2, 0), \
+			fidx(V2, 1), \
+			fidx(V2, 2), \
+			fidx(V2, 3)); \
 	printf("\n" #T "_ps:   %.10f %.10f %.10f %.10f", \
-			fidx(vs, 0), \
-			fidx(vs, 1), \
-			fidx(vs, 2), \
-			fidx(vs, 3)); \
+			fidx(VS, 0), \
+			fidx(VS, 1), \
+			fidx(VS, 2), \
+			fidx(VS, 3)); \
 	printf("\n" #TC ":      %.10f %.10f %.10f %.10f\n", \
-			TC(fidx(v1, 0), fidx(v2, 0)), \
-			TC(fidx(v1, 1), fidx(v2, 1)), \
-			TC(fidx(v1, 2), fidx(v2, 2)), \
-			TC(fidx(v1, 3), fidx(v2, 3)));
+			TC(fidx(V1, 0), fidx(V2, 0)), \
+			TC(fidx(V1, 1), fidx(V2, 1)), \
+			TC(fidx(V1, 2), fidx(V2, 2)), \
+			TC(fidx(V1, 3), fidx(V2, 3)));
 
 FCT_BGN()
 {

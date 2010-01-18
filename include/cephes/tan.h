@@ -93,5 +93,4 @@ static inline v4sf tan_ps(v4sf x) {
   
   return y;
 }
-
 #endif /* _CEPHES_TAN_H_ */

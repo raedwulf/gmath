@@ -101,4 +101,40 @@ static inline v4sf atan2_ps(v4sf y, v4sf x) {
   return xmm0;
 }
 
+static inline float atan_fast(float y, float x)
+{
+	float a, d, s, t;
+
+	if (y > x) {
+		a = -x / y;
+		d = M_PI / 2;
+	} else {
+		a = y / x;
+		d = 0.0f;
+	}
+
+	s = a * a;
+	t = 0.0028662257f;
+	t *= s;
+	t += -0.0161657367f;
+	t *= s;
+	t += 0.0429096138f;
+	t *= s;
+	t += -0.0752896400f;
+	t *= s;
+	t += 0.1065626393f;
+	t *= s;
+	t += -0.1420889944f;
+	t *= s;
+	t += 0.1999355085f;
+	t *= s;
+	t += -0.3333314528f;
+	t *= s;
+	t += 1.0f;
+	t *= a;
+	t += d;
+
+	return t;
+}
+
 #endif /* _CEPHES_ATAN_H_ */
