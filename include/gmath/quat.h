@@ -101,10 +101,10 @@ static inline quat quat_slerp(const quat q1, const quat q2, const float t)
 	out = _mm_add_ps(_mm_mul_ps(q1, _mm_set1_ps(scale0)),
 			_mm_mul_ps(q2, _mm_set1_ps(scale1)));
 #else
-	out[0] = scale0 * v[0] + scale1 * to[0];
-	out[1] = scale0 * v[1] + scale1 * to[1];
-	out[2] = scale0 * v[2] + scale1 * to[2];
-	out[3] = scale0 * v[3] + scale1 * to[3];
+	out[0] = scale0 * q1[0] + scale1 * q2[0];
+	out[1] = scale0 * q1[1] + scale1 * q2[1];
+	out[2] = scale0 * q1[2] + scale1 * q2[2];
+	out[3] = scale0 * q1[3] + scale1 * q2[3];
 #endif
 	return out;
 }
