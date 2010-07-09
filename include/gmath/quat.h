@@ -16,7 +16,7 @@
 #include "cephes/sin.h"
 #include "cephes/atan.h"
 #include "cephes/rcp.h"
-#include "quat.h"
+#include "vec4.h"
 
 static inline quat quat_mul(const quat q1, const quat q2)
 {
@@ -112,7 +112,39 @@ static inline quat quat_slerp(const quat q1, const quat q2, const float t)
 static inline quat quat_slerp_m128(const quat q1, const quat q2,
 		const m128_float t)
 {
-	quat_slerp(q1, q2, m128_to_float(t));
+	return quat_slerp(q1, q2, m128_to_float(t));
+}
+
+static inline quat quat_lerp(const quat q1, const quat q2, const float t)
+{
+#ifdef __SSE__
+	return _mm_add_ps(q1, _mm_mul_ps(_mm_sub_ps(q1, q2), _mm_set1_ps(t)));
+#else
+	quat out;
+	for (int i = 0; i < 3; i++)
+		out[i] = q1[i] + (q1[i] - q2[i]) * t;
+	return out;
+#endif
+}
+
+static inline quat quat_lerp_m128(const quat q1, const quat q2,
+		const m128_float t)
+{
+#ifdef __SSE__
+	return _mm_add_ps(q1, _mm_mul_ps(_mm_sub_ps(q1, q2), t));
+#else
+	return quat_lerp(q1, q2, m128_to_float(t));
+#endif
+}
+
+static inline float quat_dot(const quat q1, const quat q2)
+{
+	return vec4_dot(v1, v2);
+}
+
+static inline m128_float quat_dot_m128(const quat q1, const quat q2)
+{
+	return vec4_dot_m128(v1, v2);
 }
 
 #endif /* _GMATH_QUAT_H_ */
