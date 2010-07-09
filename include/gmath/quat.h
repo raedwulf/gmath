@@ -137,14 +137,4 @@ static inline quat quat_lerp_m128(const quat q1, const quat q2,
 #endif
 }
 
-static inline float quat_dot(const quat q1, const quat q2)
-{
-	return vec4_dot(v1, v2);
-}
-
-static inline m128_float quat_dot_m128(const quat q1, const quat q2)
-{
-	return vec4_dot_m128(v1, v2);
-}
-
 #endif /* _GMATH_QUAT_H_ */
