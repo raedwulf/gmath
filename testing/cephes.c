@@ -16,6 +16,12 @@
 #include <cephes/asin.h>
 #include <cephes/atan.h>
 
+/* DBL_EPSILON has less tolerance than we aim for. */
+#ifdef DBL_EPSILON
+#undef DBL_EPSILON
+#endif
+#define DBL_EPSILON EPSILON
+
 #define APPROX(X,Y) (X > Y - EPSILON && X < Y + EPSILON)
 #define SHOW_VALUES(T,TC,V,VS) \
 	printf("\nv:        %.10f %.10f %.10f %.10f", \
@@ -74,11 +80,10 @@ FCT_BGN()
 		{
 			vec4 v = {100.0f, -0.1f, -3.5f, -5.3f};
 			vec4 vs = sin_ps(v);
-			SHOW_VALUES(sin, sinf, v, vs);
-			fct_chk(APPROX(fidx(vs, 0), sinf(fidx(v, 0))));
-			fct_chk(APPROX(fidx(vs, 1), sinf(fidx(v, 1))));
-			fct_chk(APPROX(fidx(vs, 2), sinf(fidx(v, 2))));
-			fct_chk(APPROX(fidx(vs, 3), sinf(fidx(v, 3))));
+			fct_chk_eq_dbl(fidx(vs, 0), sinf(fidx(v, 0)));
+			fct_chk_eq_dbl(fidx(vs, 1), sinf(fidx(v, 1)));
+			fct_chk_eq_dbl(fidx(vs, 2), sinf(fidx(v, 2)));
+			fct_chk_eq_dbl(fidx(vs, 3), sinf(fidx(v, 3)));
 		}
 		FCT_TEST_END();
 		
@@ -86,11 +91,10 @@ FCT_BGN()
 		{
 			vec4 v = {-PI/2.0f, 0.0f, PI/2.0f, 0.0f};
 			vec4 vs = sin_ps(v);
-			SHOW_VALUES(sin, sinf, v, vs);
-			fct_chk(APPROX(fidx(vs, 0), sinf(fidx(v, 0))));
-			fct_chk(APPROX(fidx(vs, 1), sinf(fidx(v, 1))));
-			fct_chk(APPROX(fidx(vs, 2), sinf(fidx(v, 2))));
-			fct_chk(APPROX(fidx(vs, 3), sinf(fidx(v, 3))));
+			fct_chk_eq_dbl(fidx(vs, 0), sinf(fidx(v, 0)));
+			fct_chk_eq_dbl(fidx(vs, 1), sinf(fidx(v, 1)));
+			fct_chk_eq_dbl(fidx(vs, 2), sinf(fidx(v, 2)));
+			fct_chk_eq_dbl(fidx(vs, 3), sinf(fidx(v, 3)));
 		}
 		FCT_TEST_END();
 		
@@ -98,11 +102,10 @@ FCT_BGN()
 		{
 			vec4 v = {1.4f, -0.1f, 0.5f, -1.3f};
 			vec4 vs = sin_fast_ps(v);
-			SHOW_VALUES(sin_fast, sinf, v, vs);
-			fct_chk(APPROX(fidx(vs, 0), sinf(fidx(v, 0))));
-			fct_chk(APPROX(fidx(vs, 1), sinf(fidx(v, 1))));
-			fct_chk(APPROX(fidx(vs, 2), sinf(fidx(v, 2))));
-			fct_chk(APPROX(fidx(vs, 3), sinf(fidx(v, 3))));
+			fct_chk_eq_dbl(fidx(vs, 0), sinf(fidx(v, 0)));
+			fct_chk_eq_dbl(fidx(vs, 1), sinf(fidx(v, 1)));
+			fct_chk_eq_dbl(fidx(vs, 2), sinf(fidx(v, 2)));
+			fct_chk_eq_dbl(fidx(vs, 3), sinf(fidx(v, 3)));
 		}
 		FCT_TEST_END();
 		
@@ -110,11 +113,10 @@ FCT_BGN()
 		{
 			vec4 v = {-PI/2.0f, 0.0f, PI/2.0f, 0.0f};
 			vec4 vs = sin_fast_ps(v);
-			SHOW_VALUES(sin_fast, sinf, v, vs);
-			fct_chk(APPROX(fidx(vs, 0), sinf(fidx(v, 0))));
-			fct_chk(APPROX(fidx(vs, 1), sinf(fidx(v, 1))));
-			fct_chk(APPROX(fidx(vs, 2), sinf(fidx(v, 2))));
-			fct_chk(APPROX(fidx(vs, 3), sinf(fidx(v, 3))));
+			fct_chk_eq_dbl(fidx(vs, 0), sinf(fidx(v, 0)));
+			fct_chk_eq_dbl(fidx(vs, 1), sinf(fidx(v, 1)));
+			fct_chk_eq_dbl(fidx(vs, 2), sinf(fidx(v, 2)));
+			fct_chk_eq_dbl(fidx(vs, 3), sinf(fidx(v, 3)));
 		}
 		FCT_TEST_END();
 
@@ -122,11 +124,10 @@ FCT_BGN()
 		{
 			vec4 v = {100.0f, -3.15f, 0.2f, -5.3f};
 			vec4 vs = cos_ps(v);
-			SHOW_VALUES(cos, cosf, v, vs);
-			fct_chk(APPROX(fidx(vs, 0), cosf(fidx(v, 0))));
-			fct_chk(APPROX(fidx(vs, 1), cosf(fidx(v, 1))));
-			fct_chk(APPROX(fidx(vs, 2), cosf(fidx(v, 2))));
-			fct_chk(APPROX(fidx(vs, 3), cosf(fidx(v, 3))));
+			fct_chk_eq_dbl(fidx(vs, 0), cosf(fidx(v, 0)));
+			fct_chk_eq_dbl(fidx(vs, 1), cosf(fidx(v, 1)));
+			fct_chk_eq_dbl(fidx(vs, 2), cosf(fidx(v, 2)));
+			fct_chk_eq_dbl(fidx(vs, 3), cosf(fidx(v, 3)));
 		}
 		FCT_TEST_END();
 		
@@ -134,11 +135,10 @@ FCT_BGN()
 		{
 			vec4 v = {-PI/2.0f, 0.0f, PI/2.0f, 0.0f};
 			vec4 vs = cos_ps(v);
-			SHOW_VALUES(cos, cosf, v, vs);
-			fct_chk(APPROX(fidx(vs, 0), cosf(fidx(v, 0))));
-			fct_chk(APPROX(fidx(vs, 1), cosf(fidx(v, 1))));
-			fct_chk(APPROX(fidx(vs, 2), cosf(fidx(v, 2))));
-			fct_chk(APPROX(fidx(vs, 3), cosf(fidx(v, 3))));
+			fct_chk_eq_dbl(fidx(vs, 0), cosf(fidx(v, 0)));
+			fct_chk_eq_dbl(fidx(vs, 1), cosf(fidx(v, 1)));
+			fct_chk_eq_dbl(fidx(vs, 2), cosf(fidx(v, 2)));
+			fct_chk_eq_dbl(fidx(vs, 3), cosf(fidx(v, 3)));
 		}
 		FCT_TEST_END();
 		
@@ -146,11 +146,10 @@ FCT_BGN()
 		{
 			vec4 v = {1.4f, -0.1f, 0.5f, -1.3f};
 			vec4 vs = cos_fast_ps(v);
-			SHOW_VALUES(cos_fast, cosf, v, vs);
-			fct_chk(APPROX(fidx(vs, 0), cosf(fidx(v, 0))));
-			fct_chk(APPROX(fidx(vs, 1), cosf(fidx(v, 1))));
-			fct_chk(APPROX(fidx(vs, 2), cosf(fidx(v, 2))));
-			fct_chk(APPROX(fidx(vs, 3), cosf(fidx(v, 3))));
+			fct_chk_eq_dbl(fidx(vs, 0), cosf(fidx(v, 0)));
+			fct_chk_eq_dbl(fidx(vs, 1), cosf(fidx(v, 1)));
+			fct_chk_eq_dbl(fidx(vs, 2), cosf(fidx(v, 2)));
+			fct_chk_eq_dbl(fidx(vs, 3), cosf(fidx(v, 3)));
 		}
 		FCT_TEST_END();
 		
@@ -158,11 +157,10 @@ FCT_BGN()
 		{
 			vec4 v = {-PI/2.0f, 0.0f, PI/2.0f, 0.0f};
 			vec4 vs = cos_fast_ps(v);
-			SHOW_VALUES(cos_fast, cosf, v, vs);
-			fct_chk(APPROX(fidx(vs, 0), cosf(fidx(v, 0))));
-			fct_chk(APPROX(fidx(vs, 1), cosf(fidx(v, 1))));
-			fct_chk(APPROX(fidx(vs, 2), cosf(fidx(v, 2))));
-			fct_chk(APPROX(fidx(vs, 3), cosf(fidx(v, 3))));
+			fct_chk_eq_dbl(fidx(vs, 0), cosf(fidx(v, 0)));
+			fct_chk_eq_dbl(fidx(vs, 1), cosf(fidx(v, 1)));
+			fct_chk_eq_dbl(fidx(vs, 2), cosf(fidx(v, 2)));
+			fct_chk_eq_dbl(fidx(vs, 3), cosf(fidx(v, 3)));
 		}
 		FCT_TEST_END();
 		
@@ -170,11 +168,10 @@ FCT_BGN()
 		{
 			vec4 v = {100.0f, -3.15f, 0.2f, -5.3f};
 			vec4 vs = tan_ps(v);
-			SHOW_VALUES(tan, tanf, v, vs);
-			fct_chk(APPROX(fidx(vs, 0), tanf(fidx(v, 0))));
-			fct_chk(APPROX(fidx(vs, 1), tanf(fidx(v, 1))));
-			fct_chk(APPROX(fidx(vs, 2), tanf(fidx(v, 2))));
-			fct_chk(APPROX(fidx(vs, 3), tanf(fidx(v, 3))));
+			fct_chk_eq_dbl(fidx(vs, 0), tanf(fidx(v, 0)));
+			fct_chk_eq_dbl(fidx(vs, 1), tanf(fidx(v, 1)));
+			fct_chk_eq_dbl(fidx(vs, 2), tanf(fidx(v, 2)));
+			fct_chk_eq_dbl(fidx(vs, 3), tanf(fidx(v, 3)));
 		}
 		FCT_TEST_END();
 		
@@ -182,11 +179,10 @@ FCT_BGN()
 		{
 			vec4 v = {PI/4.0f, -PI/4.0f, 0.0f, 0.0f};
 			vec4 vs = tan_ps(v);
-			SHOW_VALUES(tan, tanf, v, vs);
-			fct_chk(APPROX(fidx(vs, 0), tanf(fidx(v, 0))));
-			fct_chk(APPROX(fidx(vs, 1), tanf(fidx(v, 1))));
-			fct_chk(APPROX(fidx(vs, 2), tanf(fidx(v, 2))));
-			fct_chk(APPROX(fidx(vs, 3), tanf(fidx(v, 3))));
+			fct_chk_eq_dbl(fidx(vs, 0), tanf(fidx(v, 0)));
+			fct_chk_eq_dbl(fidx(vs, 1), tanf(fidx(v, 1)));
+			fct_chk_eq_dbl(fidx(vs, 2), tanf(fidx(v, 2)));
+			fct_chk_eq_dbl(fidx(vs, 3), tanf(fidx(v, 3)));
 		}
 		FCT_TEST_END();
 		
@@ -194,11 +190,10 @@ FCT_BGN()
 		{
 			vec4 v = {-0.5f, 0.3f, 0.6f, -0.8f};
 			vec4 vs = asin_ps(v);
-			SHOW_VALUES(asin, asinf, v, vs);
-			fct_chk(APPROX(fidx(vs, 0), asinf(fidx(v, 0))));
-			fct_chk(APPROX(fidx(vs, 1), asinf(fidx(v, 1))));
-			fct_chk(APPROX(fidx(vs, 2), asinf(fidx(v, 2))));
-			fct_chk(APPROX(fidx(vs, 3), asinf(fidx(v, 3))));
+			fct_chk_eq_dbl(fidx(vs, 0), asinf(fidx(v, 0)));
+			fct_chk_eq_dbl(fidx(vs, 1), asinf(fidx(v, 1)));
+			fct_chk_eq_dbl(fidx(vs, 2), asinf(fidx(v, 2)));
+			fct_chk_eq_dbl(fidx(vs, 3), asinf(fidx(v, 3)));
 		}
 		FCT_TEST_END();
 		
@@ -206,11 +201,10 @@ FCT_BGN()
 		{
 			vec4 v = {-1.0f, 0.0f, 1.0f, 0.0f};
 			vec4 vs = asin_ps(v);
-			SHOW_VALUES(asin, asinf, v, vs);
-			fct_chk(APPROX(fidx(vs, 0), asinf(fidx(v, 0))));
-			fct_chk(APPROX(fidx(vs, 1), asinf(fidx(v, 1))));
-			fct_chk(APPROX(fidx(vs, 2), asinf(fidx(v, 2))));
-			fct_chk(APPROX(fidx(vs, 3), asinf(fidx(v, 3))));
+			fct_chk_eq_dbl(fidx(vs, 0), asinf(fidx(v, 0)));
+			fct_chk_eq_dbl(fidx(vs, 1), asinf(fidx(v, 1)));
+			fct_chk_eq_dbl(fidx(vs, 2), asinf(fidx(v, 2)));
+			fct_chk_eq_dbl(fidx(vs, 3), asinf(fidx(v, 3)));
 		}
 		FCT_TEST_END();
 		
@@ -218,11 +212,10 @@ FCT_BGN()
 		{
 			vec4 v = {-0.5f, 0.3f, 0.6f, -0.8f};
 			vec4 vs = atan_ps(v);
-			SHOW_VALUES(atan, atanf, v, vs);
-			fct_chk(APPROX(fidx(vs, 0), atanf(fidx(v, 0))));
-			fct_chk(APPROX(fidx(vs, 1), atanf(fidx(v, 1))));
-			fct_chk(APPROX(fidx(vs, 2), atanf(fidx(v, 2))));
-			fct_chk(APPROX(fidx(vs, 3), atanf(fidx(v, 3))));
+			fct_chk_eq_dbl(fidx(vs, 0), atanf(fidx(v, 0)));
+			fct_chk_eq_dbl(fidx(vs, 1), atanf(fidx(v, 1)));
+			fct_chk_eq_dbl(fidx(vs, 2), atanf(fidx(v, 2)));
+			fct_chk_eq_dbl(fidx(vs, 3), atanf(fidx(v, 3)));
 		}
 		FCT_TEST_END();
 		
@@ -230,11 +223,10 @@ FCT_BGN()
 		{
 			vec4 v = {-1.0f, 0.0f, 1.0f, 0.0f};
 			vec4 vs = atan_ps(v);
-			SHOW_VALUES(atan, atanf, v, vs);
-			fct_chk(APPROX(fidx(vs, 0), atanf(fidx(v, 0))));
-			fct_chk(APPROX(fidx(vs, 1), atanf(fidx(v, 1))));
-			fct_chk(APPROX(fidx(vs, 2), atanf(fidx(v, 2))));
-			fct_chk(APPROX(fidx(vs, 3), atanf(fidx(v, 3))));
+			fct_chk_eq_dbl(fidx(vs, 0), atanf(fidx(v, 0)));
+			fct_chk_eq_dbl(fidx(vs, 1), atanf(fidx(v, 1)));
+			fct_chk_eq_dbl(fidx(vs, 2), atanf(fidx(v, 2)));
+			fct_chk_eq_dbl(fidx(vs, 3), atanf(fidx(v, 3)));
 		}
 		FCT_TEST_END();
 		FCT_TEST_BGN("atan2_ps normal")
@@ -242,11 +234,10 @@ FCT_BGN()
 			vec4 v1 = {-0.5f, 0.3f, 0.6f, -0.8f};
 			vec4 v2 = {-0.5f, 0.3f, 0.6f, -0.8f};
 			vec4 vs = atan2_ps(v1, v2);
-			SHOW_VALUES2(atan2, atan2f, v1, v2, vs);
-			fct_chk(APPROX(fidx(vs, 0), atan2f(fidx(v1, 0), fidx(v2, 0))));
-			fct_chk(APPROX(fidx(vs, 1), atan2f(fidx(v1, 1), fidx(v2, 1))));
-			fct_chk(APPROX(fidx(vs, 2), atan2f(fidx(v1, 2), fidx(v2, 2))));
-			fct_chk(APPROX(fidx(vs, 3), atan2f(fidx(v1, 3), fidx(v2, 3))));
+			fct_chk_eq_dbl(fidx(vs, 0), atan2f(fidx(v1, 0), fidx(v2, 0)));
+			fct_chk_eq_dbl(fidx(vs, 1), atan2f(fidx(v1, 1), fidx(v2, 1)));
+			fct_chk_eq_dbl(fidx(vs, 2), atan2f(fidx(v1, 2), fidx(v2, 2)));
+			fct_chk_eq_dbl(fidx(vs, 3), atan2f(fidx(v1, 3), fidx(v2, 3)));
 		}
 		FCT_TEST_END();
 		
@@ -255,11 +246,10 @@ FCT_BGN()
 			vec4 v1 = {-2.0f, 4.0f, 1.0f, 0.0f};
 			vec4 v2 = {-1.0f, 0.0f, 2.0f, 4.0f};
 			vec4 vs = atan2_ps(v1, v2);
-			SHOW_VALUES2(atan2, atan2f, v1, v2, vs);
-			fct_chk(APPROX(fidx(vs, 0), atan2f(fidx(v1, 0), fidx(v2, 0))));
-			fct_chk(APPROX(fidx(vs, 1), atan2f(fidx(v1, 1), fidx(v2, 1))));
-			fct_chk(APPROX(fidx(vs, 2), atan2f(fidx(v1, 2), fidx(v2, 2))));
-			fct_chk(APPROX(fidx(vs, 3), atan2f(fidx(v1, 3), fidx(v2, 3))));
+			fct_chk_eq_dbl(fidx(vs, 0), atan2f(fidx(v1, 0), fidx(v2, 0)));
+			fct_chk_eq_dbl(fidx(vs, 1), atan2f(fidx(v1, 1), fidx(v2, 1)));
+			fct_chk_eq_dbl(fidx(vs, 2), atan2f(fidx(v1, 2), fidx(v2, 2)));
+			fct_chk_eq_dbl(fidx(vs, 3), atan2f(fidx(v1, 3), fidx(v2, 3)));
 		}
 		FCT_TEST_END();
 	}
