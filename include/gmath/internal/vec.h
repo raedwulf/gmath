@@ -62,13 +62,13 @@ static inline VEC_TYPE VEC_PREFIX(_scale_m128)(const VEC_TYPE v1, const m128_flo
 
 static inline VEC_TYPE VEC_PREFIX(_scale)(const VEC_TYPE v1, const float f)
 {
-	VEC_TYPE v;
 #ifndef __SSE__
+	VEC_TYPE v;
 	for (int i = 0; i < VEC_SIZE; i++)
 		v[i] = v1[i] * f;
 	return v;
 #else
-	return VEC_PREFIX(_scale_m128)(v, _mm_load1_ps(&f));
+	return VEC_PREFIX(_scale_m128)(v1, _mm_load1_ps(&f));
 #endif
 }
 
