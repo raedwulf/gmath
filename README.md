@@ -29,8 +29,7 @@ Building
 --------
 To build, you currently need premake4 (http://industriousone.com/premake).
 
-On linux, you can configure like:
-> premake4 --os=linux gmake
+On linux, you can configure like: `premake4 --os=linux gmake`
 
 Status
 ------
