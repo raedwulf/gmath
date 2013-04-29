@@ -8,7 +8,7 @@
    not expect any significant performance improvement with SSE2.
 */
 
-/* Copyright (C) 2009 Ralph Eastwood
+/* Copyright (C) 2009-2013 Ralph Eastwood
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -51,7 +51,7 @@ static inline v4sf atan_ps(v4sf x) {
   xmm4 = _mm_cmpgt_ps(x, *(v4sf*)_ps_cephes_TPIO8);
   xmm1 = _mm_andnot_ps(xmm0, xmm4);
   y = _mm_and_ps(xmm0, *(v4sf*)_ps_cephes_PIO2F);
-  y = _mm_and_ps(xmm1, *(v4sf*)_ps_cephes_PIO4F);
+  y = _mm_or_ps(y, _mm_and_ps(xmm1, *(v4sf*)_ps_cephes_PIO4F));
   xmm5 = _mm_and_ps(xmm0, _mm_xor_ps(*(v4sf*)_ps_sign_mask, rcp_ps(x)));
   xmm2 = _mm_sub_ps(x, *(v4sf*)_ps_1);
   xmm3 = _mm_add_ps(x, *(v4sf*)_ps_1);
@@ -79,7 +79,7 @@ static inline v4sf atan2_ps(v4sf y, v4sf x) {
   v4sf sign_bit;
   v4sf z, w;
   
-  xmm0 = _mm_cmplt_ps(x, _mm_setzero_ps()); 
+  xmm0 = _mm_cmplt_ps(x, _mm_setzero_ps());
   xmm1 = _mm_cmplt_ps(y, _mm_setzero_ps());
   xmm2 = _mm_cmpeq_ps(x, _mm_setzero_ps());
   xmm3 = _mm_cmpeq_ps(y, _mm_setzero_ps());

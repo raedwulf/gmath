@@ -210,7 +210,7 @@ FCT_BGN()
 		
 		FCT_TEST_BGN("atan_ps normal")
 		{
-			vec4 v = {-0.5f, 0.3f, 0.6f, -0.8f};
+			vec4 v = {-0.5f, 0.3f, 4.0f, -0.8f};
 			vec4 vs = atan_ps(v);
 			fct_chk_eq_dbl(fidx(vs, 0), atanf(fidx(v, 0)));
 			fct_chk_eq_dbl(fidx(vs, 1), atanf(fidx(v, 1)));
@@ -231,8 +231,8 @@ FCT_BGN()
 		FCT_TEST_END();
 		FCT_TEST_BGN("atan2_ps normal")
 		{
-			vec4 v1 = {-0.5f, 0.3f, 0.6f, -0.8f};
-			vec4 v2 = {-0.5f, 0.3f, 0.6f, -0.8f};
+			vec4 v1 = {-0.5f, 0.083251f, 0.6f, -0.8f};
+			vec4 v2 = {-0.5f, -0.026564f, 0.6f, -0.8f};
 			vec4 vs = atan2_ps(v1, v2);
 			fct_chk_eq_dbl(fidx(vs, 0), atan2f(fidx(v1, 0), fidx(v2, 0)));
 			fct_chk_eq_dbl(fidx(vs, 1), atan2f(fidx(v1, 1), fidx(v2, 1)));
@@ -244,7 +244,7 @@ FCT_BGN()
 		FCT_TEST_BGN("atan2_ps special")
 		{
 			vec4 v1 = {-2.0f, 4.0f, 1.0f, 0.0f};
-			vec4 v2 = {-1.0f, 0.0f, 2.0f, 4.0f};
+			vec4 v2 = {-1.0f, 0.0f, -2.0f, 4.0f};
 			vec4 vs = atan2_ps(v1, v2);
 			fct_chk_eq_dbl(fidx(vs, 0), atan2f(fidx(v1, 0), fidx(v2, 0)));
 			fct_chk_eq_dbl(fidx(vs, 1), atan2f(fidx(v1, 1), fidx(v2, 1)));
