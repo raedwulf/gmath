@@ -58,6 +58,30 @@ static inline VEC_TYPE VEC_PREFIX(_mul)(const VEC_TYPE v1, const VEC_TYPE v2)
 	return v;
 }
 
+static inline VEC_TYPE VEC_PREFIX(_max)(const VEC_TYPE v1, const VEC_TYPE v2)
+{
+	VEC_TYPE v;
+#ifndef __SSE__
+	for (int i = 0; i < VEC_SIZE; i++)
+		v[i] = v1[i] > v2[i] ? v1[i] : v2[i];
+#else
+	v = _mm_max_ps(v1, v2);
+#endif
+	return v;
+}
+
+static inline VEC_TYPE VEC_PREFIX(_min)(const VEC_TYPE v1, const VEC_TYPE v2)
+{
+	VEC_TYPE v;
+#ifndef __SSE__
+	for (int i = 0; i < VEC_SIZE; i++)
+		v[i] = v1[i] < v2[i] ? v1[i] : v2[i];
+#else
+	v = _mm_min_ps(v1, v2);
+#endif
+	return v;
+}
+
 static inline VEC_TYPE VEC_PREFIX(_scale_m128)(const VEC_TYPE v1, const m128_float f);
 
 static inline VEC_TYPE VEC_PREFIX(_scale)(const VEC_TYPE v1, const float f)
