@@ -3,7 +3,7 @@ Game Maths library
 
 License
 -------
-> Copyright (c) 2011 Tai Chi Minh Ralph Eastwood <tcmreastwood@gmail.com>
+> Copyright (c) 2011-2013 Tai Chi Minh Ralph Eastwood <tcmreastwood@gmail.com>
 >
 > Permission is hereby granted, free of charge, to any person obtaining a copy
 > of this software and associated documentation files (the "Software"), to deal
@@ -24,6 +24,11 @@ License
 > THE SOFTWARE.
 
 A simple library containing a number of inline routines that provide games with vectors, matrices to be included from a single header.
+
+Acknowledgements
+----------------
+There are contributions and related code from Amanieu d'Antras from the old abandoned unvanquished project:
+http://github.com/Amanieu/unvanquished-engine
 
 Building
 --------
