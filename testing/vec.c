@@ -81,6 +81,28 @@ FCT_BGN()
 		}
 		FCT_TEST_END();
 
+		FCT_TEST_BGN("vec3_max")
+		{
+			vec3 v1 = {2.0f, -1.0f, 3.0f};
+			vec3 v2 = {1.0f, 2.0f, 6.0f};
+			vec3 v3 = vec3_max(v1, v2);
+			fct_chk_eq_dbl(fidx(v3, 0), 2.0f);
+			fct_chk_eq_dbl(fidx(v3, 1), 2.0f);
+			fct_chk_eq_dbl(fidx(v3, 2), 6.0f);
+		}
+		FCT_TEST_END();
+
+		FCT_TEST_BGN("vec3_min")
+		{
+			vec3 v1 = {2.0f, -1.0f, 3.0f};
+			vec3 v2 = {1.0f, 2.0f, 6.0f};
+			vec3 v3 = vec3_min(v1, v2);
+			fct_chk_eq_dbl(fidx(v3, 0), 1.0f);
+			fct_chk_eq_dbl(fidx(v3, 1), -1.0f);
+			fct_chk_eq_dbl(fidx(v3, 2), 3.0f);
+		}
+		FCT_TEST_END();
+
 		FCT_TEST_BGN("vec3_scale")
 		{
 			vec3 v1 = {2.0f, 5.0f, -1.0f};
