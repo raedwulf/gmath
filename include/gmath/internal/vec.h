@@ -112,7 +112,7 @@ static inline m128_float VEC_PREFIX(_length_m128)(const VEC_TYPE v1);
 static inline float VEC_PREFIX(_length)(const VEC_TYPE v1)
 {
 #ifndef __SSE__
-	return sqrtf(VEC_DOT(v1, v1));
+	return sqrtf(VEC_PREFIX(_dot)(v1, v1));
 #else
 	vec4 v = VEC_PREFIX(_length_m128)(v1);
 	return m128_to_float(v);

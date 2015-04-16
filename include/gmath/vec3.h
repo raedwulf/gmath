@@ -23,7 +23,20 @@
 #define VEC_PREFIX(X) vec3##X
 
 static inline m128_float vec3_dot_m128(const vec3 v1, const vec3 v2);
-	
+
+static inline float vec3_dot(const vec3 v1, const vec3 v2)
+{
+#ifndef __SSE__
+	float dot;
+	for (int i = 0; i < 3; i++)
+		dot += v1[i] * v2[i];
+	return dot;
+#else
+	vec4 v = vec3_dot_m128(v1, v2);
+	return m128_to_float(v);
+#endif
+}
+
 #include "internal/vec.h"
 
 static inline vec3 vec3_cross(const vec3 v1, const vec3 v2)
@@ -42,19 +55,6 @@ static inline vec3 vec3_cross(const vec3 v1, const vec3 v2)
 	v = _mm_sub_ps(_mm_mul_ps(tmp0, tmp1), _mm_mul_ps(tmp2, tmp3));
 #endif
 	return v;
-}
-
-static inline float vec3_dot(const vec3 v1, const vec3 v2)
-{
-#ifndef __SSE__
-	float dot;
-	for (int i = 0; i < 3; i++)
-		dot += v1[i] * v2[i];
-	return dot;
-#else
-	vec4 v = vec3_dot_m128(v1, v2);
-	return m128_to_float(v);
-#endif
 }
 
 static inline m128_float vec3_dot_m128(const vec3 v1, const vec3 v2)
