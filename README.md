@@ -11,7 +11,7 @@ License
 Acknowledgements
 ----------------
 
-[Authors that have contributed](AUTHORS)
+See [Authors](AUTHORS) for a list of authors that have contributed.
 
 Building
 --------
