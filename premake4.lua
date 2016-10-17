@@ -2,7 +2,7 @@ solution "gmath"
 	configurations { "Debug", "Release" }
 	includedirs {
 		"include",
-		"testing"
+		"tests"
 	}
 	
 	project "vec"
