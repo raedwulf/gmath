@@ -1,41 +1,24 @@
 Game Maths library
 ==================
 
+A simple library containing a number of inline routines that provide games with vectors, matrices to be included from a single header.
+
 License
 -------
-> Copyright (c) 2011-2013 Tai Chi Minh Ralph Eastwood <tcmreastwood@gmail.com>
->
-> Permission is hereby granted, free of charge, to any person obtaining a copy
-> of this software and associated documentation files (the "Software"), to deal
-> in the Software without restriction, including without limitation the rights
-> to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-> copies of the Software, and to permit persons to whom the Software is
-> furnished to do so, subject to the following conditions:
->
-> The above copyright notice and this permission notice shall be included in
-> all copies or substantial portions of the Software.
->
-> THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-> AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-> LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-> OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-> THE SOFTWARE.
 
-A simple library containing a number of inline routines that provide games with vectors, matrices to be included from a single header.
+[MIT/X11](COPYING)
 
 Acknowledgements
 ----------------
-There are contributions and related code from Amanieu d'Antras from the old abandoned unvanquished project:
-http://github.com/Amanieu/unvanquished-engine
+
+[Authors that have contributed](AUTHORS)
 
 Building
 --------
-To build, you currently need premake4 (http://industriousone.com/premake).
 
-On linux, you can configure like: `premake4 --os=linux gmake`
+To build, type `make`.
 
 Status
 ------
+
 The current status of this project is pre-alpha.
